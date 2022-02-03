@@ -1,4 +1,2 @@
-packages/hardhat/*.txt
-packages/hardhat/*
-/packages/hardhat/node_modules
+
 node_modules/
