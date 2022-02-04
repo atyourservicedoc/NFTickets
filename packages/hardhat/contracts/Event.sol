@@ -23,7 +23,7 @@ contract Event is Initializable, ERC1155Upgradeable, ERC1155BurnableUpgradeable,
     mapping(address => uint256) balances;    /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() initializer {}
   struct EventItem {
-    uint itemId;
+    // uint itemId;
     // address nftContract;
     uint256 tokenId;
     address payable seller;
@@ -85,26 +85,51 @@ contract Event is Initializable, ERC1155Upgradeable, ERC1155BurnableUpgradeable,
    * @param _amount  The amount to be minted
    * @param _data    Data to pass if receiver is contract
    */
-    function createEvent(address account, uint256 id, uint256 amount, bytes memory data)
+    function createEvent(address nftContract,
+    uint256 price,
+    uint256 ticketCount,
+    string memory eventName,
+    string memory promoterBrandSymbol
+    // ) public onlyOwner {
+        // uint256 _id = _tokenIds.next();
+        // _tokenIds.increment();
+        // EventItem eventItem = EventItem(_id, nftContract, _id, msg.sender, _to, _amount, _data);
+        // idToEventItem[_id] = eventItem;
+        // EventItemCreated(eventItem.itemId, eventItem.nftContract, eventItem.tokenId, eventItem.seller, eventItem.owner, eventItem.price, eventItem.sold);
+        // return _id;
+    //     uint256 _id = _tokenIds.next();
+    //     _tokenIds.increment();
+    //     EventItem eventItem = EventItem(_id, nftContract, _id, msg.sender, msg.sender, price, false, eventName, promoterBrandSymbol, ticketCount, 0, ticketCount);
+    //     idToEventItem[_id] = eventItem;
+    //     EventItemCreated(eventItem.itemId, eventItem.nftContract, eventItem.tokenId, eventItem.seller, eventItem.owner, eventItem.price, eventItem.sold);
+    //     return _id;
+    // }
+    )
         public
         onlyOwner
     {
         uint256 newItemId = _tokenIds.current();
-        _mint(account, id, amount, "");
-        // EventItem memory newItem = EventItem(
-        //     newItemId,
-        //     id,
-        //     account,
-        //     account,
-        //     amount,
-        //     false,
-        //     "",
-        //     "",
-        //     amount,
-        //     0,
-        //     amount
-        // );    
-        }
+        setApprovalForAll(msg.sender, true);
+        _mint(msg.sender, newItemId, ticketCount, "");
+        EventItem memory newEvent = EventItem(
+            newItemId,
+            // id,
+            payable(msg.sender),
+            payable(address(0)),
+            price,
+            false,
+            eventName,
+            promoterBrandSymbol,
+            ticketCount,
+            0,
+            ticketCount
+        );
+        idToEventItem[newItemId] = newEvent;
+        EventItemCreated(newEvent.newItemId, newEvent.nftContract, newEvent.newItemId, msg.sender, msg.sender, price, false);
+        _tokenIds.increment();
+        return newItemId;
+    }
+
 
 //     function createEvent(string memory tokenURI) public returns (uint) {
 //     _tokenIds.increment();
