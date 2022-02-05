@@ -51,7 +51,7 @@ describe("NFTMarket", function () {
       .connect(buyerAddress)
       .createEventSale(nftContractAddress, 1, itemsCount);
 
-    const items = await market.fetchEventItems();
+    let items = await market.fetchEventItems();
 
     items = await Promise.all(
       items.map(async (i: item) => {

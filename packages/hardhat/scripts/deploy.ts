@@ -22,11 +22,19 @@ async function main() {
 
   console.log("Event deployed to:", event.address);
 
-  let config = `
+  const EventMarketplace = await ethers.getContractFactory("EventMarketplace");
+  const eventMarketplace = await EventMarketplace.deploy();
+
+  await eventMarketplace.deployed();
+
+  console.log("Event deployed to:", eventMarketplace.address);
+
+  const config = `
   export const event = "${event.address}"
+  export const eventMarketplace = "${eventMarketplace.address}"
   `;
 
-  let data = JSON.stringify(config);
+  const data = JSON.stringify(config);
   fs.writeFileSync("config.ts", JSON.parse(data));
 }
 
