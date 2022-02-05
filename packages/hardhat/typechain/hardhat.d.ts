@@ -68,6 +68,10 @@ declare module "hardhat/types/runtime" {
       name: "Event",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Event__factory>;
+    getContractFactory(
+      name: "EventMarketplace",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.EventMarketplace__factory>;
 
     getContractAt(
       name: "OwnableUpgradeable",
@@ -139,6 +143,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Event>;
+    getContractAt(
+      name: "EventMarketplace",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.EventMarketplace>;
 
     // default types
     getContractFactory(

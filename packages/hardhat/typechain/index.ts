@@ -15,6 +15,7 @@ export type { IERC1155Upgradeable } from "./IERC1155Upgradeable";
 export type { ERC165Upgradeable } from "./ERC165Upgradeable";
 export type { IERC165Upgradeable } from "./IERC165Upgradeable";
 export type { Event } from "./Event";
+export type { EventMarketplace } from "./EventMarketplace";
 
 export { OwnableUpgradeable__factory } from "./factories/OwnableUpgradeable__factory";
 export { IBeaconUpgradeable__factory } from "./factories/IBeaconUpgradeable__factory";
@@ -30,3 +31,4 @@ export { IERC1155Upgradeable__factory } from "./factories/IERC1155Upgradeable__f
 export { ERC165Upgradeable__factory } from "./factories/ERC165Upgradeable__factory";
 export { IERC165Upgradeable__factory } from "./factories/IERC165Upgradeable__factory";
 export { Event__factory } from "./factories/Event__factory";
+export { EventMarketplace__factory } from "./factories/EventMarketplace__factory";
