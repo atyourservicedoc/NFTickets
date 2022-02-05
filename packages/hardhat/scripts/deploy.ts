@@ -3,7 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 import fs from "fs";
 
 async function main() {
@@ -16,7 +16,7 @@ async function main() {
 
   // We get the contract to deploy
   const Event = await ethers.getContractFactory("Event");
-  const event = await Event.deploy();
+  const event = await upgrades.deployProxy(Event);
 
   await event.deployed();
 
