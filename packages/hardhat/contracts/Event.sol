@@ -17,59 +17,20 @@ contract Event is Initializable, ERC1155Upgradeable, ERC1155BurnableUpgradeable,
     CountersUpgradeable.Counter private _tokenIds;
     // address public contractAddress;
     // An address type variable is used to store ethereum accounts.
-    address public _owner;
 
     // A mapping is a key/value map. Here we store each account balance.
     mapping(address => uint256) balances;    /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() initializer {}
-  struct EventItem {
-    // uint itemId;
-    // address nftContract;
-    uint256 tokenId;
-    address payable seller;
-    address payable owner;
-    uint256 price;
-    bool sold;
-    string eventName; 
-    string promoterBrandSymbol;
-    uint256 ticketCount;
-    uint256 ticketSold;
-    uint256 ticketRemaining;
-  }
 
-  event EventItemCreated (
-    uint indexed itemId,
-    address indexed nftContract,
-    uint256 indexed tokenId,
-    address seller,
-    address owner,
-    uint256 price,
-    bool sold
-  );
-
-    mapping(uint256 => EventItem) private idToEventItem;
-
-
-    // address public promoter;
-
-    function initialize(address marketplaceAddress) initializer public {
+    function initialize() initializer public {
         __ERC1155_init("ipfs://{id}.json");
         __Ownable_init();
         __Pausable_init();
         __ERC1155Supply_init();
         __UUPSUpgradeable_init();
         __ERC1155Burnable_init();
-        // bytes32 marketplaceAddress;
-        // uint256 ticketTotal;
-        // contractAddress = marketplaceAddress;
-        // // string public ticketURI;
-        // bytes32 ticketHash;
-    }
 
-// IMPLEMENTED INSIDE createEvent
-    // function setURI(string memory newuri) public onlyOwner {
-    //     _setURI(newuri);
-    // }
+    }
 
     function pause() public onlyOwner {
         _pause();
@@ -85,61 +46,17 @@ contract Event is Initializable, ERC1155Upgradeable, ERC1155BurnableUpgradeable,
    * @param _amount  The amount to be minted
    * @param _data    Data to pass if receiver is contract
    */
-    function createEvent(address nftContract,
-    uint256 price,
-    uint256 ticketCount,
-    string memory eventName,
-    string memory promoterBrandSymbol
-    // ) public onlyOwner {
-        // uint256 _id = _tokenIds.next();
-        // _tokenIds.increment();
-        // EventItem eventItem = EventItem(_id, nftContract, _id, msg.sender, _to, _amount, _data);
-        // idToEventItem[_id] = eventItem;
-        // EventItemCreated(eventItem.itemId, eventItem.nftContract, eventItem.tokenId, eventItem.seller, eventItem.owner, eventItem.price, eventItem.sold);
-        // return _id;
-    //     uint256 _id = _tokenIds.next();
-    //     _tokenIds.increment();
-    //     EventItem eventItem = EventItem(_id, nftContract, _id, msg.sender, msg.sender, price, false, eventName, promoterBrandSymbol, ticketCount, 0, ticketCount);
-    //     idToEventItem[_id] = eventItem;
-    //     EventItemCreated(eventItem.itemId, eventItem.nftContract, eventItem.tokenId, eventItem.seller, eventItem.owner, eventItem.price, eventItem.sold);
-    //     return _id;
-    // }
-    )
+    function mint(address account, uint256 id, uint256 amount, bytes memory data)
         public
-        onlyOwner
+        onlyOwner returns (uint)
     {
-        uint256 newItemId = _tokenIds.current();
-        setApprovalForAll(msg.sender, true);
-        _mint(msg.sender, newItemId, ticketCount, "");
-        EventItem memory newEvent = EventItem(
-            newItemId,
-            // id,
-            payable(msg.sender),
-            payable(address(0)),
-            price,
-            false,
-            eventName,
-            promoterBrandSymbol,
-            ticketCount,
-            0,
-            ticketCount
-        );
-        idToEventItem[newItemId] = newEvent;
-        EventItemCreated(newEvent.newItemId, newEvent.nftContract, newEvent.newItemId, msg.sender, msg.sender, price, false);
+        address marketplaceAddress = msg.sender;
         _tokenIds.increment();
+        uint256 newItemId = _tokenIds.current();
+        _mint(msg.sender, newItemId, amount, data);
+        setApprovalForAll(marketplaceAddress, true);
         return newItemId;
     }
-
-
-//     function createEvent(string memory tokenURI) public returns (uint) {
-//     _tokenIds.increment();
-//     uint256 newItemId = _tokenIds.current();
-
-//     _mint(msg.sender, newItemId);
-//     _setTokenURI(newItemId, tokenURI);
-//     setApprovalForAll(contractAddress, true);
-//     return newItemId;
-// }
 
     function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
         public

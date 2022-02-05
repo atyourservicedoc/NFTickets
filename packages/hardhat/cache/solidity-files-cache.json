@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/Event.sol": {
-      "lastModificationDate": 1644008463279,
-      "contentHash": "85b78355270da699f0c374215dcda1f0",
+      "lastModificationDate": 1644019663147,
+      "contentHash": "2d719529be5f4f6a4211a5ba2c73bb1c",
       "sourceName": "contracts/Event.sol",
       "solcConfig": {
         "version": "0.8.4",

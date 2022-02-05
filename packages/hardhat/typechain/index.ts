@@ -14,7 +14,6 @@ export type { IERC1155ReceiverUpgradeable } from "./IERC1155ReceiverUpgradeable"
 export type { IERC1155Upgradeable } from "./IERC1155Upgradeable";
 export type { ERC165Upgradeable } from "./ERC165Upgradeable";
 export type { IERC165Upgradeable } from "./IERC165Upgradeable";
-export type { Counter } from "./Counter";
 export type { Event } from "./Event";
 
 export { OwnableUpgradeable__factory } from "./factories/OwnableUpgradeable__factory";
@@ -30,5 +29,4 @@ export { IERC1155ReceiverUpgradeable__factory } from "./factories/IERC1155Receiv
 export { IERC1155Upgradeable__factory } from "./factories/IERC1155Upgradeable__factory";
 export { ERC165Upgradeable__factory } from "./factories/ERC165Upgradeable__factory";
 export { IERC165Upgradeable__factory } from "./factories/IERC165Upgradeable__factory";
-export { Counter__factory } from "./factories/Counter__factory";
 export { Event__factory } from "./factories/Event__factory";

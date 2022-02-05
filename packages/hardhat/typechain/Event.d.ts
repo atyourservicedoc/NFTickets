@@ -22,15 +22,14 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface EventInterface extends ethers.utils.Interface {
   functions: {
-    "_owner()": FunctionFragment;
     "balanceOf(address,uint256)": FunctionFragment;
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(address,uint256,uint256)": FunctionFragment;
     "burnBatch(address,uint256[],uint256[])": FunctionFragment;
-    "createEvent(address,uint256,uint256,bytes)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
-    "initialize(address)": FunctionFragment;
+    "initialize()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "mint(address,uint256,uint256,bytes)": FunctionFragment;
     "mintBatch(address,uint256[],uint256[],bytes)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
@@ -50,7 +49,6 @@ interface EventInterface extends ethers.utils.Interface {
     "uri(uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "_owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "balanceOf",
     values: [string, BigNumberish]
@@ -68,17 +66,20 @@ interface EventInterface extends ethers.utils.Interface {
     values: [string, BigNumberish[], BigNumberish[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "createEvent",
-    values: [string, BigNumberish, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "exists",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "mint",
+    values: [string, BigNumberish, BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "mintBatch",
@@ -131,7 +132,6 @@ interface EventInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "uri", values: [BigNumberish]): string;
 
-  decodeFunctionResult(functionFragment: "_owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfBatch",
@@ -139,16 +139,13 @@ interface EventInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burnBatch", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "createEvent",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintBatch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
@@ -201,7 +198,6 @@ interface EventInterface extends ethers.utils.Interface {
     "AdminChanged(address,address)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
     "BeaconUpgraded(address)": EventFragment;
-    "EventItemCreated(uint256,address,uint256,address,address,uint256,bool)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Paused(address)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
@@ -214,7 +210,6 @@ interface EventInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "EventItemCreated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
@@ -237,18 +232,6 @@ export type ApprovalForAllEvent = TypedEvent<
 >;
 
 export type BeaconUpgradedEvent = TypedEvent<[string] & { beacon: string }>;
-
-export type EventItemCreatedEvent = TypedEvent<
-  [BigNumber, string, BigNumber, string, string, BigNumber, boolean] & {
-    itemId: BigNumber;
-    nftContract: string;
-    tokenId: BigNumber;
-    seller: string;
-    owner: string;
-    price: BigNumber;
-    sold: boolean;
-  }
->;
 
 export type OwnershipTransferredEvent = TypedEvent<
   [string, string] & { previousOwner: string; newOwner: string }
@@ -328,8 +311,6 @@ export class Event extends BaseContract {
   interface: EventInterface;
 
   functions: {
-    _owner(overrides?: CallOverrides): Promise<[string]>;
-
     balanceOf(
       account: string,
       id: BigNumberish,
@@ -356,18 +337,9 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    createEvent(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
 
     initialize(
-      marketplaceAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -376,6 +348,14 @@ export class Event extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    mint(
+      account: string,
+      id: BigNumberish,
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     mintBatch(
       to: string,
@@ -468,8 +448,6 @@ export class Event extends BaseContract {
     uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
   };
 
-  _owner(overrides?: CallOverrides): Promise<string>;
-
   balanceOf(
     account: string,
     id: BigNumberish,
@@ -496,18 +474,9 @@ export class Event extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  createEvent(
-    account: string,
-    id: BigNumberish,
-    amount: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   exists(id: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
   initialize(
-    marketplaceAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -516,6 +485,14 @@ export class Event extends BaseContract {
     operator: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  mint(
+    account: string,
+    id: BigNumberish,
+    amount: BigNumberish,
+    data: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   mintBatch(
     to: string,
@@ -605,8 +582,6 @@ export class Event extends BaseContract {
   uri(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    _owner(overrides?: CallOverrides): Promise<string>;
-
     balanceOf(
       account: string,
       id: BigNumberish,
@@ -633,26 +608,23 @@ export class Event extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    createEvent(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
-    initialize(
-      marketplaceAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    initialize(overrides?: CallOverrides): Promise<void>;
 
     isApprovedForAll(
       account: string,
       operator: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    mint(
+      account: string,
+      id: BigNumberish,
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     mintBatch(
       to: string,
@@ -782,48 +754,6 @@ export class Event extends BaseContract {
       beacon?: string | null
     ): TypedEventFilter<[string], { beacon: string }>;
 
-    "EventItemCreated(uint256,address,uint256,address,address,uint256,bool)"(
-      itemId?: BigNumberish | null,
-      nftContract?: string | null,
-      tokenId?: BigNumberish | null,
-      seller?: null,
-      owner?: null,
-      price?: null,
-      sold?: null
-    ): TypedEventFilter<
-      [BigNumber, string, BigNumber, string, string, BigNumber, boolean],
-      {
-        itemId: BigNumber;
-        nftContract: string;
-        tokenId: BigNumber;
-        seller: string;
-        owner: string;
-        price: BigNumber;
-        sold: boolean;
-      }
-    >;
-
-    EventItemCreated(
-      itemId?: BigNumberish | null,
-      nftContract?: string | null,
-      tokenId?: BigNumberish | null,
-      seller?: null,
-      owner?: null,
-      price?: null,
-      sold?: null
-    ): TypedEventFilter<
-      [BigNumber, string, BigNumber, string, string, BigNumber, boolean],
-      {
-        itemId: BigNumber;
-        nftContract: string;
-        tokenId: BigNumber;
-        seller: string;
-        owner: string;
-        price: BigNumber;
-        sold: boolean;
-      }
-    >;
-
     "OwnershipTransferred(address,address)"(
       previousOwner?: string | null,
       newOwner?: string | null
@@ -940,8 +870,6 @@ export class Event extends BaseContract {
   };
 
   estimateGas: {
-    _owner(overrides?: CallOverrides): Promise<BigNumber>;
-
     balanceOf(
       account: string,
       id: BigNumberish,
@@ -968,18 +896,9 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    createEvent(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
-      marketplaceAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -987,6 +906,14 @@ export class Event extends BaseContract {
       account: string,
       operator: string,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    mint(
+      account: string,
+      id: BigNumberish,
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     mintBatch(
@@ -1081,8 +1008,6 @@ export class Event extends BaseContract {
   };
 
   populateTransaction: {
-    _owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     balanceOf(
       account: string,
       id: BigNumberish,
@@ -1109,21 +1034,12 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    createEvent(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     exists(
       id: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     initialize(
-      marketplaceAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1131,6 +1047,14 @@ export class Event extends BaseContract {
       account: string,
       operator: string,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    mint(
+      account: string,
+      id: BigNumberish,
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     mintBatch(
