@@ -13,12 +13,12 @@ contract EventMarketplace is ReentrancyGuard {
   Counters.Counter private _itemsSold;
   
   address payable owner;
-  uint256 listingPrice = 0.025 ether;
+  uint256 listingPrice = 0.025 ether; //?
   constructor() {
     owner = payable(msg.sender);
     }
   struct EventItem {
-    uint itemId;
+    uint256 itemId; //?changed to uint256
     address nftContract;
     uint256 tokenId;
     address payable seller;
@@ -34,12 +34,18 @@ contract EventMarketplace is ReentrancyGuard {
 
   mapping(uint256 => EventItem) private idToEventItem;
 
+  event saleComplete (
+  uint256 id,
+  address buyer,
+  uint256 price
+  );
+  
   event EventItemCreated (
     uint indexed itemId,
     address indexed nftContract,
     uint256 indexed tokenId,
-    address seller,
-    address owner,
+    address seller, 
+    address owner, 
     uint256 price,
     bool sold
   );
@@ -64,7 +70,8 @@ contract EventMarketplace is ReentrancyGuard {
         public payable nonReentrant
     {
         require(price > 0, "Price must be at least 1 wei");
-        require(msg.value == listingPrice, "Price to set must be equal to listing price");
+        require(msg.value == listingPrice, "Price to set must be equal to listing price"); 
+       
         _itemIds.increment();
         uint256 itemId = _itemIds.current();
         // _mint(msg.sender, itemId, ticketCount, "");
@@ -84,8 +91,8 @@ contract EventMarketplace is ReentrancyGuard {
         );
         idToEventItem[itemId] = newEvent;
 
-        IERC1155Upgradeable(nftContract).safeTransferFrom(msg.sender, address(this), tokenId, ticketCount, "");
-        emit EventItemCreated(newEvent.itemId, newEvent.nftContract, newEvent.tokenId, msg.sender, address(0), price, false);
+        IERC1155Upgradeable(nftContract).safeTransferFrom(msg.sender, address(this), tokenId, ticketCount, ""); //?How is this address going to receive ERC1155s if it does not call onERC1155Received function?
+        emit EventItemCreated(newEvent.itemId, newEvent.nftContract, newEvent.tokenId, msg.sender, address(0), price, false); //? what is the purpose of the owner being 0x0?
     }
   
 
@@ -99,15 +106,17 @@ contract EventMarketplace is ReentrancyGuard {
     uint price = idToEventItem[itemId].price;
     uint tokenId = idToEventItem[itemId].tokenId;
     require(msg.value == price, "Please submit the asking price in order to complete the purchase");
-
+    require(idToEventItem[itemId].sold == false); //?is this check necessary?
+    idToEventItem[itemId].sold = true; //moved this to execute first
     idToEventItem[itemId].seller.transfer(msg.value);
     IERC1155Upgradeable(nftContract).safeTransferFrom(address(this), msg.sender, tokenId, amount, "");
     idToEventItem[itemId].owner = payable(msg.sender);
-    idToEventItem[itemId].sold = true;
+    
     idToEventItem[itemId].ticketSold += amount;
     idToEventItem[itemId].ticketRemaining = idToEventItem[itemId].ticketCount - idToEventItem[itemId].ticketSold;
     _itemsSold.increment();
     payable(owner).transfer(listingPrice);
+    emit saleComplete(tokenId, msg.sender, price); //?added this event
   }
 
   /* Returns all unsold Event items */
