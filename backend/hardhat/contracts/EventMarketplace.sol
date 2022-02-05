@@ -13,7 +13,7 @@ contract EventMarketplace is ReentrancyGuard {
   Counters.Counter private _itemsSold;
   
   address payable owner;
-  uint256 listingPrice = 0.025 ether; //?
+  uint256 listingPrice = 0.025 ether; //? This is a listing fee for making a listing?
   constructor() {
     owner = payable(msg.sender);
     }
@@ -106,8 +106,8 @@ contract EventMarketplace is ReentrancyGuard {
     uint price = idToEventItem[itemId].price;
     uint tokenId = idToEventItem[itemId].tokenId;
     require(msg.value == price, "Please submit the asking price in order to complete the purchase");
-    require(idToEventItem[itemId].sold == false); //?is this check necessary?
-    idToEventItem[itemId].sold = true; //moved this to execute first
+    require(idToEventItem[itemId].sold == false); //?I added this check, but is it necessary?
+    idToEventItem[itemId].sold = true; //?moved this to execute first
     idToEventItem[itemId].seller.transfer(msg.value);
     IERC1155Upgradeable(nftContract).safeTransferFrom(address(this), msg.sender, tokenId, amount, "");
     idToEventItem[itemId].owner = payable(msg.sender);
