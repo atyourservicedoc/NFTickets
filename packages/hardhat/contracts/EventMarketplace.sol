@@ -53,7 +53,9 @@ contract EventMarketplace is ReentrancyGuard {
 
   // THIS COMES FROM EVENT.SOL
 
-  function createEventItem(address nftContract,
+  function createEventItem(
+    address nftContract,
+    uint256 tokenId,
     uint256 price,
     uint256 ticketCount,
     string memory eventName,
@@ -69,7 +71,7 @@ contract EventMarketplace is ReentrancyGuard {
         EventItem memory newEvent = EventItem(
             itemId,
             nftContract,
-            itemId,
+            tokenId,
             payable(msg.sender),
             payable(address(0)),
             price,
@@ -82,146 +84,95 @@ contract EventMarketplace is ReentrancyGuard {
         );
         idToEventItem[itemId] = newEvent;
 
-        IERC1155Upgradeable(nftContract).safeTransferFrom(msg.sender, address(this), itemId, ticketCount, "");
-        emit EventItemCreated(newEvent.itemId, newEvent.nftContract, newEvent.itemId, msg.sender, msg.sender, price, false);
+        IERC1155Upgradeable(nftContract).safeTransferFrom(msg.sender, address(this), tokenId, ticketCount, "");
+        emit EventItemCreated(newEvent.itemId, newEvent.nftContract, newEvent.tokenId, msg.sender, address(0), price, false);
     }
   
-  /* Places an item for sale on the marketplace */
-  // function createEventItem(
-  //   uint256 itemId,
-  //   address nftContract,
-  //   uint256 tokenId,
-  //   uint256 price,
-  //   string promoterBrandSymbol,
-  //   uint256 ticketCount,
-  //   uint256 ticketSold,
-  //   uint256 ticketRemaining
-  // ) public payable nonReentrant {
-  //   owner = payable(msg.sender);
-  //   require(price > 0, "Ticket price must be at least 1 wei");
-  //   require(msg.value == listingPrice, "Price must be equal to listing price");
-  //   transferOwnership(msg.sender);
-  //   _itemIds.increment();
-  //   uint256 itemId = _itemIds.current();
-  
-  //   idToMarketItem[itemId] =  EventItem(
-  //     itemId,
-  //     nftContract,
-  //     tokenId,
-  //     payable(msg.sender),
-  //     payable(address(0)),
-  //     price,
-  //     false,
-  //     promoterBrandSymbol,
-  //     ticketCount,
-  //     ticketSold,
-  //     ticketRemaining
-  //   );
-
-  //   IERC1155(nftContract).transferFrom(msg.sender, address(this), tokenId);
-
-  //   emit MarketItemCreated(
-  //     itemId,
-  //     nftContract,
-  //     tokenId,
-  //     msg.sender,
-  //     address(0),
-  //     price,
-  //     false
-  //   );
-  // }
-
-
-
-
-
-
-
-
-
-
 
   /* Creates the sale of a marketplace item */
   /* Transfers ownership of the item, as well as funds between parties */
-//   function createMarketSale(
-//     address nftContract,
-//     uint256 itemId
-//     ) public payable nonReentrant {
-//     uint price = idToMarketItem[itemId].price;
-//     uint tokenId = idToMarketItem[itemId].tokenId;
-//     require(msg.value == price, "Please submit the asking price in order to complete the purchase");
+  function createEventSale(
+    address nftContract,
+    uint256 itemId,
+    uint256 amount
+    ) public payable nonReentrant {
+    uint price = idToEventItem[itemId].price;
+    uint tokenId = idToEventItem[itemId].tokenId;
+    require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
-//     idToMarketItem[itemId].seller.transfer(msg.value);
-//     IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
-//     idToMarketItem[itemId].owner = payable(msg.sender);
-//     idToMarketItem[itemId].sold = true;
-//     _itemsSold.increment();
-//     payable(owner).transfer(listingPrice);
-//   }
+    idToEventItem[itemId].seller.transfer(msg.value);
+    IERC1155Upgradeable(nftContract).safeTransferFrom(address(this), msg.sender, tokenId, amount, "");
+    idToEventItem[itemId].owner = payable(msg.sender);
+    idToEventItem[itemId].sold = true;
+    idToEventItem[itemId].ticketSold += amount;
+    idToEventItem[itemId].ticketRemaining = idToEventItem[itemId].ticketCount - idToEventItem[itemId].ticketSold;
+    _itemsSold.increment();
+    payable(owner).transfer(listingPrice);
+  }
 
-//   /* Returns all unsold market items */
-//   function fetchMarketItems() public view returns (EventItem[] memory) {
-//     uint itemCount = _itemIds.current();
-//     uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
-//     uint currentIndex = 0;
+  /* Returns all unsold Event items */
+  function fetchEventItems() public view returns (EventItem[] memory) {
+    uint itemCount = _itemIds.current();
+    uint unsoldItemCount = _itemIds.current() - _itemsSold.current();
+    uint currentIndex = 0;
 
-//     EventItem[] memory items = new EventItem[](unsoldItemCount);
-//     for (uint i = 0; i < itemCount; i++) {
-//       if (idToMarketItem[i + 1].owner == address(0)) {
-//         uint currentId = i + 1;
-//         EventItem storage currentItem = idToMarketItem[currentId];
-//         items[currentIndex] = currentItem;
-//         currentIndex += 1;
-//       }
-//     }
-//     return items;
-//   }
+    EventItem[] memory items = new EventItem[](unsoldItemCount);
+    for (uint i = 0; i < itemCount; i++) {
+      if (idToEventItem[i + 1].owner == address(0)) {
+        uint currentId = i + 1;
+        EventItem storage currentItem = idToEventItem[currentId];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    }
+    return items;
+  }
 
 //   /* Returns onlyl items that a user has purchased */
-//   function fetchMyNFTs() public view returns (EventItem[] memory) {
-//     uint totalItemCount = _itemIds.current();
-//     uint itemCount = 0;
-//     uint currentIndex = 0;
+  function fetchMyNFTs() public view returns (EventItem[] memory) {
+    uint totalItemCount = _itemIds.current();
+    uint itemCount = 0;
+    uint currentIndex = 0;
 
-//     for (uint i = 0; i < totalItemCount; i++) {
-//       if (idToMarketItem[i + 1].owner == msg.sender) {
-//         itemCount += 1;
-//       }
-//     }
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToEventItem[i + 1].owner == msg.sender) {
+        itemCount += 1;
+      }
+    }
 
-//     EventItem[] memory items = new EventItem[](itemCount);
-//     for (uint i = 0; i < totalItemCount; i++) {
-//       if (idToMarketItem[i + 1].owner == msg.sender) {
-//         uint currentId = i + 1;
-//         EventItem storage currentItem = idToMarketItem[currentId];
-//         items[currentIndex] = currentItem;
-//         currentIndex += 1;
-//       }
-//     }
-//     return items;
-//   }
+    EventItem[] memory items = new EventItem[](itemCount);
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToEventItem[i + 1].owner == msg.sender) {
+        uint currentId = i + 1;
+        EventItem storage currentItem = idToEventItem[currentId];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    }
+    return items;
+  }
 
 //   /* Returns only items a user has created */
-//   function fetchItemsCreated() public view returns (EventItem[] memory) {
-//     uint totalItemCount = _itemIds.current();
-//     uint itemCount = 0;
-//     uint currentIndex = 0;
+  function fetchItemsCreated() public view returns (EventItem[] memory) {
+    uint totalItemCount = _itemIds.current();
+    uint itemCount = 0;
+    uint currentIndex = 0;
 
-//     for (uint i = 0; i < totalItemCount; i++) {
-//       if (idToMarketItem[i + 1].seller == msg.sender) {
-//         itemCount += 1;
-//       }
-//     }
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToEventItem[i + 1].seller == msg.sender) {
+        itemCount += 1;
+      }
+    }
 
-//     EventItem[] memory items = new EventItem[](itemCount);
-//     for (uint i = 0; i < totalItemCount; i++) {
-//       if (idToMarketItem[i + 1].seller == msg.sender) {
-//         uint currentId = i + 1;
-//         EventItem storage currentItem = idToMarketItem[currentId];
-//         items[currentIndex] = currentItem;
-//         currentIndex += 1;
-//       }
-//     }
-//     return items;
-//   }
+    EventItem[] memory items = new EventItem[](itemCount);
+    for (uint i = 0; i < totalItemCount; i++) {
+      if (idToEventItem[i + 1].seller == msg.sender) {
+        uint currentId = i + 1;
+        EventItem storage currentItem = idToEventItem[currentId];
+        items[currentIndex] = currentItem;
+        currentIndex += 1;
+      }
+    }
+    return items;
+  }
 }

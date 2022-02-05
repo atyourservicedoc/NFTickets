@@ -717,8 +717,8 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/EventMarketplace.sol": {
-      "lastModificationDate": 1644021575628,
-      "contentHash": "da81dc3c9fd10ad35ebca5f252d8ffc8",
+      "lastModificationDate": 1644024045902,
+      "contentHash": "67c5b9489fdc438000ae7fb1e2f12948",
       "sourceName": "contracts/EventMarketplace.sol",
       "solcConfig": {
         "version": "0.8.4",

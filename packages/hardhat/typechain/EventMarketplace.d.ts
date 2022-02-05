@@ -21,13 +21,33 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface EventMarketplaceInterface extends ethers.utils.Interface {
   functions: {
-    "createEventItem(address,uint256,uint256,string,string)": FunctionFragment;
+    "createEventItem(address,uint256,uint256,uint256,string,string)": FunctionFragment;
+    "createEventSale(address,uint256,uint256)": FunctionFragment;
+    "fetchEventItems()": FunctionFragment;
+    "fetchItemsCreated()": FunctionFragment;
+    "fetchMyNFTs()": FunctionFragment;
     "getListingPrice()": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "createEventItem",
-    values: [string, BigNumberish, BigNumberish, string, string]
+    values: [string, BigNumberish, BigNumberish, BigNumberish, string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createEventSale",
+    values: [string, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fetchEventItems",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fetchItemsCreated",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "fetchMyNFTs",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getListingPrice",
@@ -36,6 +56,22 @@ interface EventMarketplaceInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(
     functionFragment: "createEventItem",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createEventSale",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fetchEventItems",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fetchItemsCreated",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "fetchMyNFTs",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -108,6 +144,7 @@ export class EventMarketplace extends BaseContract {
   functions: {
     createEventItem(
       nftContract: string,
+      tokenId: BigNumberish,
       price: BigNumberish,
       ticketCount: BigNumberish,
       eventName: string,
@@ -115,11 +152,121 @@ export class EventMarketplace extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    createEventSale(
+      nftContract: string,
+      itemId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    fetchEventItems(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([
+          BigNumber,
+          string,
+          BigNumber,
+          string,
+          string,
+          BigNumber,
+          boolean,
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
+          itemId: BigNumber;
+          nftContract: string;
+          tokenId: BigNumber;
+          seller: string;
+          owner: string;
+          price: BigNumber;
+          sold: boolean;
+          eventName: string;
+          promoterBrandSymbol: string;
+          ticketCount: BigNumber;
+          ticketSold: BigNumber;
+          ticketRemaining: BigNumber;
+        })[]
+      ]
+    >;
+
+    fetchItemsCreated(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([
+          BigNumber,
+          string,
+          BigNumber,
+          string,
+          string,
+          BigNumber,
+          boolean,
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
+          itemId: BigNumber;
+          nftContract: string;
+          tokenId: BigNumber;
+          seller: string;
+          owner: string;
+          price: BigNumber;
+          sold: boolean;
+          eventName: string;
+          promoterBrandSymbol: string;
+          ticketCount: BigNumber;
+          ticketSold: BigNumber;
+          ticketRemaining: BigNumber;
+        })[]
+      ]
+    >;
+
+    fetchMyNFTs(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([
+          BigNumber,
+          string,
+          BigNumber,
+          string,
+          string,
+          BigNumber,
+          boolean,
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
+          itemId: BigNumber;
+          nftContract: string;
+          tokenId: BigNumber;
+          seller: string;
+          owner: string;
+          price: BigNumber;
+          sold: boolean;
+          eventName: string;
+          promoterBrandSymbol: string;
+          ticketCount: BigNumber;
+          ticketSold: BigNumber;
+          ticketRemaining: BigNumber;
+        })[]
+      ]
+    >;
+
     getListingPrice(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   createEventItem(
     nftContract: string,
+    tokenId: BigNumberish,
     price: BigNumberish,
     ticketCount: BigNumberish,
     eventName: string,
@@ -127,17 +274,224 @@ export class EventMarketplace extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  createEventSale(
+    nftContract: string,
+    itemId: BigNumberish,
+    amount: BigNumberish,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  fetchEventItems(
+    overrides?: CallOverrides
+  ): Promise<
+    ([
+      BigNumber,
+      string,
+      BigNumber,
+      string,
+      string,
+      BigNumber,
+      boolean,
+      string,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      itemId: BigNumber;
+      nftContract: string;
+      tokenId: BigNumber;
+      seller: string;
+      owner: string;
+      price: BigNumber;
+      sold: boolean;
+      eventName: string;
+      promoterBrandSymbol: string;
+      ticketCount: BigNumber;
+      ticketSold: BigNumber;
+      ticketRemaining: BigNumber;
+    })[]
+  >;
+
+  fetchItemsCreated(
+    overrides?: CallOverrides
+  ): Promise<
+    ([
+      BigNumber,
+      string,
+      BigNumber,
+      string,
+      string,
+      BigNumber,
+      boolean,
+      string,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      itemId: BigNumber;
+      nftContract: string;
+      tokenId: BigNumber;
+      seller: string;
+      owner: string;
+      price: BigNumber;
+      sold: boolean;
+      eventName: string;
+      promoterBrandSymbol: string;
+      ticketCount: BigNumber;
+      ticketSold: BigNumber;
+      ticketRemaining: BigNumber;
+    })[]
+  >;
+
+  fetchMyNFTs(
+    overrides?: CallOverrides
+  ): Promise<
+    ([
+      BigNumber,
+      string,
+      BigNumber,
+      string,
+      string,
+      BigNumber,
+      boolean,
+      string,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      itemId: BigNumber;
+      nftContract: string;
+      tokenId: BigNumber;
+      seller: string;
+      owner: string;
+      price: BigNumber;
+      sold: boolean;
+      eventName: string;
+      promoterBrandSymbol: string;
+      ticketCount: BigNumber;
+      ticketSold: BigNumber;
+      ticketRemaining: BigNumber;
+    })[]
+  >;
+
   getListingPrice(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     createEventItem(
       nftContract: string,
+      tokenId: BigNumberish,
       price: BigNumberish,
       ticketCount: BigNumberish,
       eventName: string,
       promoterBrandSymbol: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    createEventSale(
+      nftContract: string,
+      itemId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    fetchEventItems(
+      overrides?: CallOverrides
+    ): Promise<
+      ([
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        string,
+        BigNumber,
+        boolean,
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        itemId: BigNumber;
+        nftContract: string;
+        tokenId: BigNumber;
+        seller: string;
+        owner: string;
+        price: BigNumber;
+        sold: boolean;
+        eventName: string;
+        promoterBrandSymbol: string;
+        ticketCount: BigNumber;
+        ticketSold: BigNumber;
+        ticketRemaining: BigNumber;
+      })[]
+    >;
+
+    fetchItemsCreated(
+      overrides?: CallOverrides
+    ): Promise<
+      ([
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        string,
+        BigNumber,
+        boolean,
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        itemId: BigNumber;
+        nftContract: string;
+        tokenId: BigNumber;
+        seller: string;
+        owner: string;
+        price: BigNumber;
+        sold: boolean;
+        eventName: string;
+        promoterBrandSymbol: string;
+        ticketCount: BigNumber;
+        ticketSold: BigNumber;
+        ticketRemaining: BigNumber;
+      })[]
+    >;
+
+    fetchMyNFTs(
+      overrides?: CallOverrides
+    ): Promise<
+      ([
+        BigNumber,
+        string,
+        BigNumber,
+        string,
+        string,
+        BigNumber,
+        boolean,
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        itemId: BigNumber;
+        nftContract: string;
+        tokenId: BigNumber;
+        seller: string;
+        owner: string;
+        price: BigNumber;
+        sold: boolean;
+        eventName: string;
+        promoterBrandSymbol: string;
+        ticketCount: BigNumber;
+        ticketSold: BigNumber;
+        ticketRemaining: BigNumber;
+      })[]
+    >;
 
     getListingPrice(overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -189,6 +543,7 @@ export class EventMarketplace extends BaseContract {
   estimateGas: {
     createEventItem(
       nftContract: string,
+      tokenId: BigNumberish,
       price: BigNumberish,
       ticketCount: BigNumberish,
       eventName: string,
@@ -196,18 +551,45 @@ export class EventMarketplace extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    createEventSale(
+      nftContract: string,
+      itemId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    fetchEventItems(overrides?: CallOverrides): Promise<BigNumber>;
+
+    fetchItemsCreated(overrides?: CallOverrides): Promise<BigNumber>;
+
+    fetchMyNFTs(overrides?: CallOverrides): Promise<BigNumber>;
+
     getListingPrice(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     createEventItem(
       nftContract: string,
+      tokenId: BigNumberish,
       price: BigNumberish,
       ticketCount: BigNumberish,
       eventName: string,
       promoterBrandSymbol: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    createEventSale(
+      nftContract: string,
+      itemId: BigNumberish,
+      amount: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    fetchEventItems(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    fetchItemsCreated(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    fetchMyNFTs(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getListingPrice(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
