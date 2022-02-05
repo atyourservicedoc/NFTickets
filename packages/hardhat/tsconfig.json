@@ -12,9 +12,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "incremental": true,
-    "rootDir": "packages"
+    "rootDir": "packages",
+    "declaration": true,
+    "removeComments": true,
+    "importHelpers": true
   },
   "include": [
     "next-env.d.ts",
