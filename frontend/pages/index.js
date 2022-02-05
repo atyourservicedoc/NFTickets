@@ -3,18 +3,24 @@ import Image from 'next/image'
 import { useEffect, useContext, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import { Web3AuthContext } from '../web3auth/Web3AuthContext'
+import Web3AuthLoginButton from '../web3auth/Web3AuthLoginButton'
 
-export default function Home() {
+function Home() {
 
   const [web3AuthIsReady, setWeb3AuthIsReady] = useState(false);
-  const web3auth = useContext(Web3AuthContext);
-
+  const [userInfo, setUserInfo] = useState();
+  const web3AuthProvider = useContext(Web3AuthContext);
+  
   useEffect(async () => {
     // init modal
-    await web3auth.initModal();
+    try {
+      await web3AuthProvider.web3auth.initModal();
 
-    // enable login button
-    setWeb3AuthIsReady(true);
+      // enable login button
+      setWeb3AuthIsReady(true);
+    } catch (e) {
+      console.log(e);
+    }
   }, [])
 
   return (
@@ -23,31 +29,51 @@ export default function Home() {
         <title></title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
+        <link href="/dist/output.css" rel="stylesheet"></link>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <button disabled={!web3AuthIsReady} onClick={async () => 
-            {
-              try {
-                const provider = await web3auth.connect();
-              } catch (e) {
-                console.log(e);
-              }
+          <Web3AuthLoginButton />
+          <button disabled={!web3AuthIsReady} onClick={async () => {
+            try {
+              await web3AuthProvider.web3auth.connect();
+            } catch (e) {
+              console.log(e);
             }
+          }
           }>
-            Login with Web3Auth
+            Log in
+          </button>
+          <button disabled={!web3AuthIsReady} onClick={async () => {
+            try {
+              await web3AuthProvider.web3auth.logout();
+            } catch (e) {
+              console.log(e);
+            }
+          }
+          }>
+            Logout
           </button>
         </h1>
 
         <p className={styles.description}>
+          {userInfo && userInfo}
         </p>
 
-        
+
       </main>
 
       <footer className={styles.footer}>
       </footer>
+    </div>
+  )
+}
+
+export default function NewHome() {
+  return (
+    <div className="flex items-center justify-center h-screen bg-background">
+      <Web3AuthLoginButton />
     </div>
   )
 }
