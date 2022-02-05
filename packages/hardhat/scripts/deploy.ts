@@ -27,7 +27,7 @@ async function main() {
 
   await eventMarketplace.deployed();
 
-  console.log("Event deployed to:", eventMarketplace.address);
+  console.log("Event Marketplace deployed to:", eventMarketplace.address);
 
   const config = `
   export const event = "${event.address}"
