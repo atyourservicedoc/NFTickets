@@ -16,7 +16,7 @@ export default function Web3AuthProvider(props) {
     const [sessionStatus, setSessionStatus] = useState(ADAPTER_EVENTS.DISCONNECTED);
 
     // create web3auth object
-    useEffect(() => {
+    useEffect(async () => {
         const web3AuthInit = new Web3Auth({
             chainConfig: { chainNamespace: CHAIN_NAMESPACES.EIP155 },
             clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID

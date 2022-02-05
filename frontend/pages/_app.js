@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import { useEffect } from 'react'
 
 // loading Web3Auth module doesn't work properly with SSR, load it client-side only:
 import dynamic from 'next/dynamic'
@@ -8,14 +9,13 @@ const Web3AuthProvider = dynamic(() =>
   { ssr: false }
 )
 
-/*
-const MoralisWrapper = dynamic(() =>
-  import('../moralis/MoralisWrapper'),
-  { ssr: false }
-)
-*/
-
 function MyApp({ Component, pageProps }) {
+
+  useEffect(() => {
+    // Set page background to black
+    document.body.style.backgroundColor = "#000000";
+  })
+
   return (
     <Web3AuthProvider>
       <MoralisWrapper>
