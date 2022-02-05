@@ -26,10 +26,10 @@ interface EventInterface extends ethers.utils.Interface {
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(address,uint256,uint256)": FunctionFragment;
     "burnBatch(address,uint256[],uint256[])": FunctionFragment;
+    "createToken(uint256,bytes)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
     "initialize()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "mint(address,uint256,uint256,bytes)": FunctionFragment;
     "mintBatch(address,uint256[],uint256[],bytes)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
@@ -66,6 +66,10 @@ interface EventInterface extends ethers.utils.Interface {
     values: [string, BigNumberish[], BigNumberish[]]
   ): string;
   encodeFunctionData(
+    functionFragment: "createToken",
+    values: [BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "exists",
     values: [BigNumberish]
   ): string;
@@ -76,10 +80,6 @@ interface EventInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "mint",
-    values: [string, BigNumberish, BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "mintBatch",
@@ -139,13 +139,16 @@ interface EventInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burnBatch", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "createToken",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mintBatch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
@@ -337,6 +340,12 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    createToken(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
 
     initialize(
@@ -348,14 +357,6 @@ export class Event extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
-
-    mint(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
 
     mintBatch(
       to: string,
@@ -474,6 +475,12 @@ export class Event extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  createToken(
+    amount: BigNumberish,
+    data: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   exists(id: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
   initialize(
@@ -485,14 +492,6 @@ export class Event extends BaseContract {
     operator: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
-
-  mint(
-    account: string,
-    id: BigNumberish,
-    amount: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
 
   mintBatch(
     to: string,
@@ -608,6 +607,12 @@ export class Event extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    createToken(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
     initialize(overrides?: CallOverrides): Promise<void>;
@@ -617,14 +622,6 @@ export class Event extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
-
-    mint(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     mintBatch(
       to: string,
@@ -896,6 +893,12 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    createToken(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     exists(id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
@@ -906,14 +909,6 @@ export class Event extends BaseContract {
       account: string,
       operator: string,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    mint(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     mintBatch(
@@ -1034,6 +1029,12 @@ export class Event extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    createToken(
+      amount: BigNumberish,
+      data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     exists(
       id: BigNumberish,
       overrides?: CallOverrides
@@ -1047,14 +1048,6 @@ export class Event extends BaseContract {
       account: string,
       operator: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    mint(
-      account: string,
-      id: BigNumberish,
-      amount: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     mintBatch(

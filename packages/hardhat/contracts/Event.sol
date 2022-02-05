@@ -46,7 +46,7 @@ contract Event is Initializable, ERC1155Upgradeable, ERC1155BurnableUpgradeable,
    * @param _amount  The amount to be minted
    * @param _data    Data to pass if receiver is contract
    */
-    function mint(address account, uint256 id, uint256 amount, bytes memory data)
+    function createToken(uint256 amount, bytes memory data)
         public
         onlyOwner returns (uint)
     {
