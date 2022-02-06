@@ -160,10 +160,10 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
     }
 
 
-    function withdrawFunds(_id, withdrawAmount) external payable nonReentrant {
+    function withdrawFunds(uint256 _id, uint256 withdrawAmount) external payable nonReentrant {
         require (idToEventObject[_id].owner == msg.sender, "Must be event creator");
         require (salesObject[_id].totalRevenue >= salesObject[_id].withdrawnSoFar + withdrawAmount, "Trying to withdraw more than you've made");
-        salesObject[_id] = withdrawn + withdrawnAmount;
+        salesObject[_id] = withdrawn + withdrawAmount;
         //transfer(withdrawAmount)
         idToSalesObject[_id].withdrawnSoFar += withdrawAmount;
         //it's 2am I'll finish this tmr
