@@ -1,7 +1,12 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.4;
 
-//import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-//import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 //import counters
 //import safemath
 //import IERCstuff
@@ -37,7 +42,7 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
 
     mapping(uint256 => EventObject) private idToEventObject;
     mapping(uint256 => Counters.Counter) private idToSupplyCount;
-    mapping(uint256 => SalesObject) private idToSalesObject
+    mapping(uint256 => SalesObject) private idToSalesObject;
     //buyers mapping (userAddress, eventId => totalTicketsBought)
     //Event[] public events;
 
@@ -91,7 +96,7 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
         require(totalSupply > 0, "Event must have 1 ticket to sell");
         require(pricePerTicket > 0, "Price must be at least 1 wei");
         require(maxMintAmount > 0, "Max tickets per order must be at least 1");
-        require(msg.value == fee, "Must send create event fee at exact amount);
+        require(msg.value == fee, "Must send create event fee at exact amount");
         _itemIds.increment();
         uint256 itemId = _itemIds.current();
         EventObject memory newEvent = EventObject(
@@ -108,7 +113,7 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
         SalesObject memory newSales = SalesObject(
             0,
             0
-        )
+        );
 
         idToEventObject[itemId] = newEvent;
         idToSupplyCount[itemId] = salesObject;
@@ -150,17 +155,17 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
         EventObject[pageSize] memory events;
         for (uint256 i = 0; i < pageSize; i++) {
             events.push(idToEventItem[(page*pageSize)+1])
-        }
+        ;}
         return events;
     }
 
 
-    function withdrawFunds(id, withdrawAmount) external payable nonReentrant {
-        require (idToEventObject[id].owner == msg.sender, "Must be event creator");
-        require (salesObject[id].totalRevenue >= salesObject[id].withdrawnSoFar + withdrawAmount, "Trying to withdraw more than you've made")
-        salesObject[id] = withdrawn + withdrawnAmount
+    function withdrawFunds(_id, withdrawAmount) external payable nonReentrant {
+        require (idToEventObject[_id].owner == msg.sender, "Must be event creator");
+        require (salesObject[_id].totalRevenue >= salesObject[_id].withdrawnSoFar + withdrawAmount, "Trying to withdraw more than you've made");
+        salesObject[_id] = withdrawn + withdrawnAmount;
         //transfer(withdrawAmount)
-        idToSalesObject[id].withdrawnSoFar += withdrawAmount
+        idToSalesObject[_id].withdrawnSoFar += withdrawAmount;
         //it's 2am I'll finish this tmr
     }
 
