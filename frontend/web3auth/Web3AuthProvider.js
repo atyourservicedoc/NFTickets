@@ -13,7 +13,7 @@ export default function Web3AuthProvider(props) {
     const [web3, setWeb3] = useState();
     const [address, setAddress] = useState();
     const [userInfo, setUserInfo] = useState();
-    const [sessionStatus, setSessionStatus] = useState(ADAPTER_EVENTS.DISCONNECTED);
+    const [sessionStatus, setSessionStatus] = useState('INIT');
 
     // create web3auth object
     useEffect(async () => {
@@ -61,6 +61,15 @@ export default function Web3AuthProvider(props) {
         web3AuthInit.on(ADAPTER_EVENTS.ERRORED, () => {
             setSessionStatus(ADAPTER_EVENTS.ERRORED)
         })
+
+        //console.log(web3AuthInit.getUserInfo())
+        //setSessionStatus('DONE_INIT')
+
+        setTimeout(function () {
+            if (!web3AuthInit.provider) {
+                setSessionStatus(ADAPTER_EVENTS.DISCONNECTED);
+            }
+        }, 5000);
     }, [])
 
     return (
@@ -69,3 +78,6 @@ export default function Web3AuthProvider(props) {
         </Web3AuthContext.Provider>
     )
 }
+
+//d
+// go to dashboard while logged out -> 

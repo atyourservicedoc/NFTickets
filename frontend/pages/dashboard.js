@@ -1,54 +1,49 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 const navBarData = require('../data/navBarData');
-import Web3AuthLoginButton from '../web3auth/Web3AuthLoginButton';
+import { Web3AuthAccountIndicator } from '../web3auth/Web3AuthLoginButton';
 import { FiMenu } from 'react-icons/fi';
 import { Web3AuthContext } from '../web3auth/Web3AuthContext';
 import { useContext } from 'react';
+import { LogoWithText } from '../components/Logo';
+import { ADAPTER_EVENTS } from '@web3auth/base';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 export default function dashboard() {
+
+    // get web3auth context
+    const web3AuthProvider = useContext(Web3AuthContext);
+
+    useEffect(() => {
+        // Redirect to landing if not authenticated
+        if (web3AuthProvider.sessionStatus == ADAPTER_EVENTS.DISCONNECTED) {
+            router.push('/landing');
+        }
+    }, [web3AuthProvider.sessionStatus])
 
     const router = useRouter()
 
     useEffect(() => {
-        if (router && !navBarData.find(object => object.id != null && object.id == router.query.page)) {
+        if (router && router.pathname == '/dashboard' && !navBarData.find(object => object.id != null && object.id == router.query.page)) {
             router.push({
                 pathname: '/dashboard',
                 query: {
-                    page: 'search'//navBarData[0].id
+                    page: navBarData[0].id
                 }
             }, undefined, { shallow: true })
         }
     })
 
+    if (web3AuthProvider.sessionStatus != ADAPTER_EVENTS.CONNECTED) {
+        return (
+            <LoadingIndicator />
+        )
+    }
+
     return (
         <div className="flex flex-col space-y-4 h-screen">
             <NavBar />
             <ContentView />
-        </div>
-    )
-}
-
-function LogoWithText() {
-    return (
-        <button className="flex items-center justify-center space-x-4">
-            <Logo />
-            <p className="text-4xl font-extrabold text-accent glow-white-sm">
-                NFTickets
-            </p>
-        </button>
-    )
-}
-
-function Logo() {
-    return (
-        <div className="flex items-end">
-            <div className="absolute w-9 h-14 rounded-md ticket-clip-darker opacity-0 -rotate-[8deg]">
-
-            </div>
-            <div className="w-9 h-14 rounded-md ticket-clip opacity-100 rotate-[8deg] glow-pink-xs">
-
-            </div>
         </div>
     )
 }
@@ -123,7 +118,7 @@ function NavBarButtons({ menuCollapsed }) {
                     }
                 })
             }
-            <Web3AuthLoginButton />
+            <Web3AuthAccountIndicator />
         </div>
     )
 }
