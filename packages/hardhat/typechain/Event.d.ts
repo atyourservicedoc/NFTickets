@@ -26,7 +26,7 @@ interface EventInterface extends ethers.utils.Interface {
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(address,uint256,uint256)": FunctionFragment;
     "burnBatch(address,uint256[],uint256[])": FunctionFragment;
-    "createToken(uint256,bytes)": FunctionFragment;
+    "createToken(address,uint256,bytes)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
     "initialize()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
@@ -67,7 +67,7 @@ interface EventInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createToken",
-    values: [BigNumberish, BytesLike]
+    values: [string, BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "exists",
@@ -341,6 +341,7 @@ export class Event extends BaseContract {
     ): Promise<ContractTransaction>;
 
     createToken(
+      marketplaceAddress: string,
       amount: BigNumberish,
       data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -476,6 +477,7 @@ export class Event extends BaseContract {
   ): Promise<ContractTransaction>;
 
   createToken(
+    marketplaceAddress: string,
     amount: BigNumberish,
     data: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -608,6 +610,7 @@ export class Event extends BaseContract {
     ): Promise<void>;
 
     createToken(
+      marketplaceAddress: string,
       amount: BigNumberish,
       data: BytesLike,
       overrides?: CallOverrides
@@ -894,6 +897,7 @@ export class Event extends BaseContract {
     ): Promise<BigNumber>;
 
     createToken(
+      marketplaceAddress: string,
       amount: BigNumberish,
       data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1030,6 +1034,7 @@ export class Event extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     createToken(
+      marketplaceAddress: string,
       amount: BigNumberish,
       data: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }

@@ -15,23 +15,31 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Event = await ethers.getContractFactory("Event");
-  const event = await upgrades.deployProxy(Event);
+  // const Event = await ethers.getContractFactory("Event");
+  // const event = await upgrades.deployProxy(Event);
 
-  await event.deployed();
+  // await event.deployed();
 
-  console.log("Event deployed to:", event.address);
+  // console.log("Event deployed to:", event.address);
 
-  const EventMarketplace = await ethers.getContractFactory("EventMarketplace");
-  const eventMarketplace = await EventMarketplace.deploy();
+  // const EventMarketplace = await ethers.getContractFactory("EventMarketplace");
+  // const eventMarketplace = await EventMarketplace.deploy();
 
-  await eventMarketplace.deployed();
+  // await eventMarketplace.deployed();
 
-  console.log("Event deployed to:", eventMarketplace.address);
+  // console.log("Event deployed to:", eventMarketplace.address);
+
+  const ConcertMarketPlace = await ethers.getContractFactory(
+    "ConcertMarketPlace"
+  );
+  const concertMarketPlace = await ConcertMarketPlace.deploy();
+
+  await concertMarketPlace.deployed();
+
+  console.log("ConcertMarketPlace deployed to:", concertMarketPlace.address);
 
   const config = `
-  export const event = "${event.address}"
-  export const eventMarketplace = "${eventMarketplace.address}"
+  export const concertMarketPlace = "${concertMarketPlace.address}"
   `;
 
   const data = JSON.stringify(config);

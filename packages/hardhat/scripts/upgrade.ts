@@ -4,9 +4,9 @@ import { event } from "../config";
 const currentVersion = event;
 
 async function main() {
-  const Event = await ethers.getContractFactory("Event");
-  const event = await upgrades.upgradeProxy(currentVersion, Event);
-  console.log("Event upgraded and proxied through:", event.address);
+  const EventV2 = await ethers.getContractFactory("EventV2");
+  const event = await upgrades.upgradeProxy(currentVersion, EventV2);
+  console.log("Event Proxy upgraded to:", event.address);
 }
 
 main();

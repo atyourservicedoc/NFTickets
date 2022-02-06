@@ -14,8 +14,18 @@ export type { IERC1155ReceiverUpgradeable } from "./IERC1155ReceiverUpgradeable"
 export type { IERC1155Upgradeable } from "./IERC1155Upgradeable";
 export type { ERC165Upgradeable } from "./ERC165Upgradeable";
 export type { IERC165Upgradeable } from "./IERC165Upgradeable";
+export type { ConcertMarketPlace } from "./ConcertMarketPlace";
+export type { ERC1155 } from "./ERC1155";
+export type { ERC165 } from "./ERC165";
+export type { IERC1155 } from "./IERC1155";
+export type { IERC1155MetadataURI } from "./IERC1155MetadataURI";
+export type { IERC1155Receiver } from "./IERC1155Receiver";
+export type { IERC165 } from "./IERC165";
+export type { IERC20 } from "./IERC20";
+export type { Ownable } from "./Ownable";
 export type { Event } from "./Event";
 export type { EventMarketplace } from "./EventMarketplace";
+export type { EventV2 } from "./EventV2";
 
 export { OwnableUpgradeable__factory } from "./factories/OwnableUpgradeable__factory";
 export { IBeaconUpgradeable__factory } from "./factories/IBeaconUpgradeable__factory";
@@ -30,5 +40,15 @@ export { IERC1155ReceiverUpgradeable__factory } from "./factories/IERC1155Receiv
 export { IERC1155Upgradeable__factory } from "./factories/IERC1155Upgradeable__factory";
 export { ERC165Upgradeable__factory } from "./factories/ERC165Upgradeable__factory";
 export { IERC165Upgradeable__factory } from "./factories/IERC165Upgradeable__factory";
+export { ConcertMarketPlace__factory } from "./factories/ConcertMarketPlace__factory";
+export { ERC1155__factory } from "./factories/ERC1155__factory";
+export { ERC165__factory } from "./factories/ERC165__factory";
+export { IERC1155__factory } from "./factories/IERC1155__factory";
+export { IERC1155MetadataURI__factory } from "./factories/IERC1155MetadataURI__factory";
+export { IERC1155Receiver__factory } from "./factories/IERC1155Receiver__factory";
+export { IERC165__factory } from "./factories/IERC165__factory";
+export { IERC20__factory } from "./factories/IERC20__factory";
+export { Ownable__factory } from "./factories/Ownable__factory";
 export { Event__factory } from "./factories/Event__factory";
 export { EventMarketplace__factory } from "./factories/EventMarketplace__factory";
+export { EventV2__factory } from "./factories/EventV2__factory";

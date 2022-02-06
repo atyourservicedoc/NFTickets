@@ -65,6 +65,42 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165Upgradeable__factory>;
     getContractFactory(
+      name: "ConcertMarketPlace",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ConcertMarketPlace__factory>;
+    getContractFactory(
+      name: "ERC1155",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155__factory>;
+    getContractFactory(
+      name: "ERC165",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC165__factory>;
+    getContractFactory(
+      name: "IERC1155",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155__factory>;
+    getContractFactory(
+      name: "IERC1155MetadataURI",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155MetadataURI__factory>;
+    getContractFactory(
+      name: "IERC1155Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1155Receiver__factory>;
+    getContractFactory(
+      name: "IERC165",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC165__factory>;
+    getContractFactory(
+      name: "IERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
+      name: "Ownable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Ownable__factory>;
+    getContractFactory(
       name: "Event",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Event__factory>;
@@ -72,6 +108,10 @@ declare module "hardhat/types/runtime" {
       name: "EventMarketplace",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.EventMarketplace__factory>;
+    getContractFactory(
+      name: "EventV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.EventV2__factory>;
 
     getContractAt(
       name: "OwnableUpgradeable",
@@ -139,6 +179,51 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC165Upgradeable>;
     getContractAt(
+      name: "ConcertMarketPlace",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ConcertMarketPlace>;
+    getContractAt(
+      name: "ERC1155",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155>;
+    getContractAt(
+      name: "ERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC165>;
+    getContractAt(
+      name: "IERC1155",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155>;
+    getContractAt(
+      name: "IERC1155MetadataURI",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155MetadataURI>;
+    getContractAt(
+      name: "IERC1155Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1155Receiver>;
+    getContractAt(
+      name: "IERC165",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC165>;
+    getContractAt(
+      name: "IERC20",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC20>;
+    getContractAt(
+      name: "Ownable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Ownable>;
+    getContractAt(
       name: "Event",
       address: string,
       signer?: ethers.Signer
@@ -148,6 +233,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.EventMarketplace>;
+    getContractAt(
+      name: "EventV2",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.EventV2>;
 
     // default types
     getContractFactory(

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/Event.sol": {
-      "lastModificationDate": 1644025835690,
-      "contentHash": "f1619fea0a9ce4f1ad6d4d6e776cd7f1",
+      "lastModificationDate": 1644181419740,
+      "contentHash": "5d5d3e37abf7966f1dd8a79440181a35",
       "sourceName": "contracts/Event.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -39,14 +39,14 @@
         "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol"
       ],
       "versionPragmas": [
-        "^0.8.2"
+        "^0.8.4"
       ],
       "artifacts": [
         "Event"
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol": {
-      "lastModificationDate": 1643919667890,
+      "lastModificationDate": 1644181286892,
       "contentHash": "2b01df813fcac914545260bbfc0096a5",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol",
       "solcConfig": {
@@ -89,7 +89,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol": {
-      "lastModificationDate": 1643919667766,
+      "lastModificationDate": 1644181265554,
       "contentHash": "cf6aabe70ba1e832bfd230a0bca4a90a",
       "sourceName": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
       "solcConfig": {
@@ -127,7 +127,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol": {
-      "lastModificationDate": 1643919667767,
+      "lastModificationDate": 1644181265575,
       "contentHash": "56eb710f3dbdaf143774cec1e8bab998",
       "sourceName": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
       "solcConfig": {
@@ -165,7 +165,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol": {
-      "lastModificationDate": 1643919667892,
+      "lastModificationDate": 1644181299580,
       "contentHash": "21a897c57b9943e274b7b9ce08a8f86d",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol",
       "solcConfig": {
@@ -203,7 +203,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol": {
-      "lastModificationDate": 1643919667892,
+      "lastModificationDate": 1644181299579,
       "contentHash": "b11fc56bff65b3786244de2d65a33048",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol",
       "solcConfig": {
@@ -241,7 +241,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol": {
-      "lastModificationDate": 1643919667831,
+      "lastModificationDate": 1644181286891,
       "contentHash": "5794bf69c8a9e3f669b107e773226716",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
       "solcConfig": {
@@ -278,7 +278,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol": {
-      "lastModificationDate": 1643919667829,
+      "lastModificationDate": 1644181286891,
       "contentHash": "38239f5716fb005a4942175109ce7544",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
       "solcConfig": {
@@ -316,7 +316,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol": {
-      "lastModificationDate": 1643919667768,
+      "lastModificationDate": 1644181265560,
       "contentHash": "2e908c762a799baea365e68a50500e2c",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol",
       "solcConfig": {
@@ -351,7 +351,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol": {
-      "lastModificationDate": 1643919667890,
+      "lastModificationDate": 1644181286892,
       "contentHash": "a51bc173c3333372b3aa9913bc21f38c",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol",
       "solcConfig": {
@@ -388,7 +388,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol": {
-      "lastModificationDate": 1643919667890,
+      "lastModificationDate": 1644181286892,
       "contentHash": "c3278ebd54ac39a89aeed50ad990899a",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgradeable.sol",
       "solcConfig": {
@@ -425,7 +425,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/IERC1155MetadataURIUpgradeable.sol": {
-      "lastModificationDate": 1643919667892,
+      "lastModificationDate": 1644181299579,
       "contentHash": "8b7e95c747e2dab3b5444b37410a8315",
       "sourceName": "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/IERC1155MetadataURIUpgradeable.sol",
       "solcConfig": {
@@ -462,7 +462,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol": {
-      "lastModificationDate": 1643919667768,
+      "lastModificationDate": 1644181265560,
       "contentHash": "55b302649ec6d2886b1a017576fe887d",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol",
       "solcConfig": {
@@ -497,7 +497,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol": {
-      "lastModificationDate": 1643919667768,
+      "lastModificationDate": 1644181265560,
       "contentHash": "f6ab00c776fdf19b4fa9ba0309b0218c",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol",
       "solcConfig": {
@@ -534,7 +534,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol": {
-      "lastModificationDate": 1643919667891,
+      "lastModificationDate": 1644181286892,
       "contentHash": "a71370fa2c90b44922da1995bdf95e2a",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol",
       "solcConfig": {
@@ -572,7 +572,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol": {
-      "lastModificationDate": 1643919667891,
+      "lastModificationDate": 1644181286892,
       "contentHash": "d6ecf203a5e72c845be9bbf2f304a289",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable.sol",
       "solcConfig": {
@@ -607,7 +607,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol": {
-      "lastModificationDate": 1643919667829,
+      "lastModificationDate": 1644181286889,
       "contentHash": "523aba2cb7f40529165e0b1da3beaff3",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol",
       "solcConfig": {
@@ -647,7 +647,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol": {
-      "lastModificationDate": 1643919667829,
+      "lastModificationDate": 1644181286892,
       "contentHash": "21bffd733b4ca013e125a0ffe2e52254",
       "sourceName": "@openzeppelin/contracts-upgradeable/proxy/beacon/IBeaconUpgradeable.sol",
       "solcConfig": {
@@ -682,7 +682,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol": {
-      "lastModificationDate": 1643919667768,
+      "lastModificationDate": 1644181265560,
       "contentHash": "fffe21caed735dbc8a621e3844f0adb1",
       "sourceName": "@openzeppelin/contracts-upgradeable/utils/StorageSlotUpgradeable.sol",
       "solcConfig": {
@@ -717,8 +717,8 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/EventMarketplace.sol": {
-      "lastModificationDate": 1644024045902,
-      "contentHash": "67c5b9489fdc438000ae7fb1e2f12948",
+      "lastModificationDate": 1644180372886,
+      "contentHash": "74f442d9231345e79dec19a660b91a6b",
       "sourceName": "contracts/EventMarketplace.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -751,14 +751,14 @@
         "hardhat/console.sol"
       ],
       "versionPragmas": [
-        "^0.8.2"
+        "^0.8.4"
       ],
       "artifacts": [
         "EventMarketplace"
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
-      "lastModificationDate": 1644020818891,
+      "lastModificationDate": 1644181265493,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
@@ -793,7 +793,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
-      "lastModificationDate": 1644020818891,
+      "lastModificationDate": 1644181265486,
       "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
       "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
@@ -828,7 +828,7 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1643918919435,
+      "lastModificationDate": 1644181250951,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -860,6 +860,111 @@
       ],
       "artifacts": [
         "console"
+      ]
+    },
+    "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/EventV2.sol": {
+      "lastModificationDate": 1644190164720,
+      "contentHash": "87b29e6275d0eaaa669d2651a5b3cdb5",
+      "sourceName": "contracts/EventV2.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol",
+        "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "EventV2"
+      ]
+    },
+    "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/ConcertMarketPlace.sol": {
+      "lastModificationDate": 1644190682386,
+      "contentHash": "729d031bcd58358eef4c22892deac537",
+      "sourceName": "contracts/ConcertMarketPlace.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Address",
+        "ConcertMarketPlace",
+        "Context",
+        "Counters",
+        "ERC1155",
+        "ERC165",
+        "IERC1155",
+        "IERC1155MetadataURI",
+        "IERC1155Receiver",
+        "IERC165",
+        "IERC20",
+        "Ownable",
+        "ReentrancyGuard",
+        "SafeMath"
       ]
     }
   }
