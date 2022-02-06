@@ -3,23 +3,17 @@ import MainContent from "../components/dashboardPages/MainContent";
 import SearchContent from "../components/dashboardPages/SearchContent";
 import CreateContent from "../components/dashboardPages/CreateContent";
 import SalesContent from "../components/dashboardPages/SalesContent";
+import MyTicketsContent from "../components/dashboardPages/MyTicketsContent";
 
 // used for populating nav bar on dashboard
 
 // export the data
 module.exports = [
     {
-        title: 'Main',
-        icon: <FiGlobe size="20" />,
-        content: <MainContent />,
-        id: 'main',
-        authRequired: false
-    },
-    {
-        title: 'Search',
+        title: 'Explore',
         icon: <FiSearch size="20" />,
         content: <SearchContent />,
-        id: 'search',
+        id: 'explore',
         authRequired: true
     },
     {
@@ -27,6 +21,13 @@ module.exports = [
         icon: <FiPlus size="20" />,
         content: <CreateContent />,
         id: 'create',
+        authRequired: true
+    },
+    {
+        title: 'My Tickets',
+        icon: <FiTrendingUp size="20" />,
+        content: <MyTicketsContent />,
+        id: 'mytickets',
         authRequired: true
     },
     {
