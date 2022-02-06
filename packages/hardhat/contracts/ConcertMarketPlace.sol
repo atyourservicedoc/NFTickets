@@ -1621,12 +1621,14 @@ function getStrLen(string memory _str) public view returns(uint) {
         emit purchaseComplete(id, amount, msg.sender, idToEventObject[id].pricePerTicket);
     }
 
-/** There is no support for returning structs in solidity...
-    function getEvent(uint256 id) external view returns (memory EventObject) {
+
+    function getEvent(uint256 id) external view returns (EventObject memory) {
         return idToEventObject[id];
     }
-    function getEvents(uint256 page, uint256 pageSize) public returns (EventObject[]) {
-        EventObject[pageSize] memory events;
+
+/** need return array to be memory, can't push to it because you can only push to storage arrays, can NOT push to memory arrays
+    function getEvents(uint256 page, uint256 pageSize) public returns (EventObject[] memory) {
+        EventObject[] storage events;
         for (uint256 i = 0; i < pageSize; i++) {
             events.push(idToEventObject[(page*pageSize) + i]);
         }
