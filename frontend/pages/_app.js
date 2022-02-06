@@ -12,13 +12,6 @@ const Web3AuthProvider = dynamic(() =>
   { ssr: false }
 )
 
-  return (
-    <Web3AuthProvider>
-      <MoralisWrapper>
-        <Component {...pageProps} />
-      </MoralisWrapper>
-    </Web3AuthProvider>
-  )
 const Website = ({Component, pageProps, router}) => {
   
     useEffect(() => {
