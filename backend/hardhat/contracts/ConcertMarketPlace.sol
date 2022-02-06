@@ -142,6 +142,18 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
         emit purchaseComplete(id, amount, msg.sender, idToEventObject[id].pricePerTicket);
     }
 
+    function getEvent(uint256 id) public view returns (EventObject) {
+        return idToEventObject[id];
+    }
+
+    function getEvents(uint256 page, uint256 pageSize) public view returns (EventObject[]) {
+        EventObject[pageSize] memory events;
+        for (uint256 i = 0; i < pageSize; i++) {
+            events.push(idToEventItem[(page*pageSize)+1])
+        }
+        return events;
+    }
+
 
     function withdrawFunds(id, withdrawAmount) external payable nonReentrant {
         require (idToEventObject[id].owner == msg.sender, "Must be event creator");
