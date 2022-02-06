@@ -18,7 +18,8 @@ module.exports = {
         backgroundD2: '#18181b',
         backgroundD: '#000000',
         accentD: '#18181b',
-        highlightD: '#27272a'
+        highlightD: '#27272a',
+        intermediateD: '#1D1D20'
       },
     },
   },

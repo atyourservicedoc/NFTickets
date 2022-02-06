@@ -46,6 +46,11 @@
       drop-shadow(0px 0px 30px #D63E8D);
   }
 
+  .glow-pink-xxs {
+    filter: 
+      drop-shadow(0px 0px 25px #D63E8D33);
+  }
+
   .ticket-clip {
     background:
         radial-gradient(circle at 50% 5%, transparent 0, transparent 20%, #D63E8D 22%, #D63E8D 100%) top,
@@ -53,26 +58,34 @@
     background-size:100% 52%;
     background-repeat:no-repeat;
   }
+
+  .form-text-field {
+    @apply p-4 bg-transparent text-lg font-semibold shadow-inner rounded-xl outline outline-2 outline-highlightD focus:outline-primary2 text-accent transition-all duration-300
+  }
 }
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
     height: 20px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background: #f7f4ed;
+    background: #0B0B0C;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #e0cbcb;
+    background: #D63E8D;
     border-radius: 100vh;
-    border: 3px solid #f6f7ed;
+    border: 3px solid #0B0B0C;
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
   }
+}
+
+.input-field::-webkit-border-radius {
+  @apply rounded-xl
 }

@@ -41,7 +41,7 @@ export default function dashboard() {
     }
 
     return (
-        <div className="flex flex-col space-y-4 h-screen">
+        <div className="flex flex-col w-full h-screen bg-black">
             <NavBar />
             <ContentView />
         </div>
@@ -68,7 +68,7 @@ function ContentView() {
     })
 
     return (
-        <div className='flex flex-col w-full h-full px-8'>
+        <div className="w-full h-full overflow-y-hidden px-8 py-4">
             {content}
         </div>
     )
@@ -144,7 +144,7 @@ function NavBarButton({ data }) {
                     {data.icon}
                 </p>
             </div>
-            <p className="font-bold text-accent p-4 glow-white-xxs" >
+            <p className="font-bold text-accent p-4 glow-white-xxs whitespace-nowrap" >
                 {data.title}
             </p>
         </button>

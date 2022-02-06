@@ -1,9 +1,9 @@
 import { ContentTitle } from "../../pages/dashboard"
 
-export default function SalesContent() {
+export default function MyTicketsContent() {
     return (
         <div className="flex flex-col space-y-4 h-full">
-            <ContentTitle title={"Sales"} />
+            <ContentTitle title={"My Tickets"} />
         </div>
     )
 }

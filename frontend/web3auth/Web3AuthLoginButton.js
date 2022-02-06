@@ -56,7 +56,7 @@ export function Web3AuthAccountIndicator() {
     return (
         <div className="flex justify-center transition-all">
             {
-                <button className={`${menuOpen ? 'mt-28' : 'mt-0'} absolute items-center justify-center w-60 h-10 rounded-full border-2 border-highlightD p-2 space-x-3 bg-accentD hover:scale-105 transition-all duration-300`}
+                <button className={`${menuOpen ? 'mt-16' : 'mt-0'} absolute items-center justify-center w-60 h-10 rounded-full border-2 border-highlightD p-2 space-x-3 bg-accentD hover:scale-105 transition-all duration-300`}
                     onClick={async () => {
                         try {
                             await web3AuthProvider.web3auth.logout();
@@ -67,16 +67,6 @@ export function Web3AuthAccountIndicator() {
                     }}>
                     <p className="text-red-500 font-bold">
                         Log out
-                    </p>
-                </button>
-            }
-            {
-                <button className={`${menuOpen ? 'mt-16' : 'mt-0'} absolute items-center justify-center w-60 h-10 rounded-full border-2 border-highlightD p-2 space-x-3 bg-accentD hover:scale-105 transition-all duration-300`}
-                    onClick={async () => {
-                        // go to my account page?
-                    }}>
-                    <p className="text-secondary font-bold">
-                        My Account
                     </p>
                 </button>
             }
