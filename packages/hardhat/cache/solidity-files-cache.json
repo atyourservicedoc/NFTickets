@@ -907,8 +907,8 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/ConcertMarketPlace.sol": {
-      "lastModificationDate": 1644190682386,
-      "contentHash": "729d031bcd58358eef4c22892deac537",
+      "lastModificationDate": 1644196749852,
+      "contentHash": "0882ce95f8b7901f5ffcdcbcf59769f2",
       "sourceName": "contracts/ConcertMarketPlace.sol",
       "solcConfig": {
         "version": "0.8.4",

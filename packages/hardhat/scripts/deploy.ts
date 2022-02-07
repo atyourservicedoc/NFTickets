@@ -39,6 +39,8 @@ async function main() {
   console.log("ConcertMarketPlace deployed to:", concertMarketPlace.address);
 
   const config = `
+  export const event = "${event.address}"
+  export const eventMarketplace = "${eventMarketplace.address}"
   export const concertMarketPlace = "${concertMarketPlace.address}"
   `;
 
