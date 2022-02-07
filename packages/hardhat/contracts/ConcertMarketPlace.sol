@@ -1525,6 +1525,7 @@ contract ConcertMarketPlace is ERC1155, ReentrancyGuard, Ownable {
     event purchaseStarted (uint256 id, uint256 amount, address buyer);
     event purchaseFailed (uint256 id, uint256 amount, address buyer);
     event purchaseComplete (uint256 id, uint256 amount, address buyer, uint256 price);
+    uint256[] events;
     event EventObjectCreated (
         uint256 indexed id, 
         string name,
@@ -1584,6 +1585,9 @@ function getStrLen(string memory _str) public view returns(uint) {
             baseURI
         );
 
+        
+        events.push(newEvent.id);
+        
         SalesObject memory newSales = SalesObject(
             0,
             0
@@ -1624,6 +1628,10 @@ function getStrLen(string memory _str) public view returns(uint) {
 
     function getEvent(uint256 id) external view returns (EventObject memory) {
         return idToEventObject[id];
+    }
+
+    function getEventIds() external view returns (uint256[] memory) {
+        return events;
     }
 
 /** need return array to be memory, can't push to it because you can only push to storage arrays, can NOT push to memory arrays
