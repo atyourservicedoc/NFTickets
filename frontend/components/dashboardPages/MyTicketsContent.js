@@ -7,24 +7,17 @@ export default function MyTicketsContent() {
     return (
         <div className="flex flex-col space-y-4 h-full">
             <ContentTitle title={"My Tickets"} />
+            <TicketList tickets={tickets} />
         </div>
     )
 }
 
-function TicketCard() {
-    return (
-        <div className="w-64 h-64 bg-accentD">
-
-        </div>
-    )
-}
-
-function EventList({ events }) {
+function TicketList({ tickets }) {
     return (
         <div className="w-full h-full space-y-4 pr-2 overflow-y-scroll scrollbar">
             {
-                events &&
-                    events.map(event => {
+                tickets &&
+                    tickets.map(event => {
 
                         // TODO: map data properly
                         const name = 'Test Event'
@@ -35,7 +28,7 @@ function EventList({ events }) {
                         const description = 'This is a description for testing! This is a description for testing!'
 
                         return (
-                            <EventCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
+                            <TicketCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
                         )
                     })
             }
