@@ -46,14 +46,7 @@ function TicketCard({ name, imageUri, price, quantity, description }) {
                 <p className="text-accent font-black text-3xl">
                     {name}
                 </p>
-                <SmallDataField indicator={'Quantity'} text={quantity} unit={'tickets'} />
                 <SmallDataField indicator={'Description'} text={description} />
-                <div className="flex space-x-4" >
-                    <SmallDataField indicator={'Price'} text={price} unit={'ETH'} />
-                    <button className="flex w-full h-12 bg-accent rounded-xl items-center justify-center font-extrabold glow-white-xxs" >
-                        Buy now
-                    </button>
-                </div>
             </div>
         </div>
     )

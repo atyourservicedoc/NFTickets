@@ -5,14 +5,8 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { Web3AuthContext } from "../../web3auth/Web3AuthContext";
 const ipfs = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
-/*
-import * as marketplaceABI from '../../../backend/hardhat/artifacts/contracts/EventMarketplace.sol/EventMarketplace.json';
-import * as eventABI from '../../../backend/hardhat/artifacts/contracts/Event.sol/Event.json';
-import { event, eventMarketplace } from '../../../backend/hardhat/config.ts';
-*/
-
 import * as marketplaceJson from '../../../backend/hardhat/contracts/ConcertMarketPlace.json';
-const concertMarketplaceAddress = '0x8cCF83aE2ffA68b94eFe521D16D03D8D045B9995';
+const concertMarketplaceAddress = '0xd106E4e5Fc3c64d2FABEd9Bcce12ABbBfE1E798A';
 
 import { ethers } from "ethers";
 
@@ -47,50 +41,13 @@ function CreateEventForm() {
 
         // Upload to ipfs (the url)
         uploadFile().then(async (uri) => {
-            if (web3AuthProvider.web3 && imageUri) {
+            if (web3AuthProvider.web3 && uri) {
                 const payableAmount = web3AuthProvider.web3.utils.toWei('1', "ether")
                 const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
                 const transaction = await marketplaceContract.methods.createEventObject(name, description, quantity, price, maxMintAmount, uri).send({from: web3AuthProvider.address, value: payableAmount});
-                //const transaction = await marketplaceContract.methods.createEventObject('first event', 'description', 100, 1, 3, 'asdf').send({from: web3AuthProvider.address, value: payableAmount });
-                //const transaction = await marketplaceContract.methods.createEventObject(name, description, 100, 1, 3, '').send({from: web3AuthProvider.address, value: payableAmount });
-                console.log(transaction);
+                console.log(transaction)
             }
         })
-
-        /*
-        // Make a call to the smart contract
-        if (web3AuthProvider.web3) {
-            // reference contracts
-            //const eventContract = new web3AuthProvider.web3.eth.Contract(eventABI, event)
-            //const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceABI.abi, eventMarketplace)
-
-
-            const payableAmount = web3AuthProvider.web3.utils.toWei('1', "ether")
-            const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
-            const transaction = await marketplaceContract.methods.createEventObject(name, description, quantity, price, maxMintAmount, imageUri).send({from: web3AuthProvider.address, value: payableAmount});
-            //const transaction = await marketplaceContract.methods.createEventObject('first event', 'description', 100, 1, 3, 'asdf').send({from: web3AuthProvider.address, value: payableAmount });
-            //const transaction = await marketplaceContract.methods.createEventObject(name, description, 100, 1, 3, '').send({from: web3AuthProvider.address, value: payableAmount });
-            console.log(transaction);
-
-            // create tickets
-            //const transaction = await eventContract.methods.createToken(quantity, imageUri).send();
-            //const transaction = await marketplaceContract.methods.createEventItem(event, 0, 1, 10, 'Test Event', 'symbol').send();
-        }
-        */
-
-        /*
-        WORKING:
-        const destination = '0x65AA9B131FA4D4ab112CD5E912B82C068574C9B5';
-        const amount = web3AuthProvider.web3.utils.toWei('0.1');
-
-        const receipt = await web3AuthProvider.web3.eth.sendTransaction({
-            from: web3AuthProvider.address,
-            to: destination,
-            value: amount,
-        });
-
-        console.log(receipt)
-        */
     }
 
     const [image, setImage] = useState({})

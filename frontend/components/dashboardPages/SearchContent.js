@@ -1,15 +1,32 @@
 import { ContentTitle } from "../../pages/dashboard"
 import { FiSearch } from "react-icons/fi"
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Web3AuthContext } from "../../web3auth/Web3AuthContext";
+
+import * as marketplaceJson from '../../../backend/hardhat/contracts/ConcertMarketPlace.json';
+const concertMarketplaceAddress = '0xd106E4e5Fc3c64d2FABEd9Bcce12ABbBfE1E798A';
 
 export default function SearchContent() {
 
-    const events = Array(10).fill(0);
+    const [events, setEvents] = useState();
 
     // state for paging
     const [page, setPage] = useState(1);
     const [maxPages, setMaxPages] = useState(5);
+
+    // get web3auth context
+    const web3AuthProvider = useContext(Web3AuthContext);
+
+    useEffect(async () => {
+        if (web3AuthProvider.web3) {
+            const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
+            await marketplaceContract.methods.getEventIds().call()
+                .then((array) => {
+                    setEvents(array);
+                })
+        }
+    }, [])
 
     return (
         <div className="flex flex-col space-y-4 h-full">
@@ -35,23 +52,39 @@ function SearchBar() {
 }
 
 function EventList({ events }) {
+
+    // get web3auth context
+    const web3AuthProvider = useContext(Web3AuthContext);
+
     return (
         <div className="w-full h-full space-y-4 pr-2 overflow-y-scroll scrollbar">
             {
                 events ?
                     events.map(event => {
 
-                        // TODO: map data properly
-                        const name = 'Test Event'
-                        //const imageUri = 'QmYhmFVUGRDvnKmydvmFim1jUiL2rNZCe4zExgdxuMHCie'
-                        const imageUri = ''
-                        const price = 0.1
-                        const quantity = 123
-                        const description = 'This is a description for testing! This is a description for testing!'
+                        // get event data from id
+                        if (web3AuthProvider.web3) {
 
-                        return (
-                            <EventCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
-                        )
+                            const [name, setName] = useState('')
+                            const [imageUri, setImageUri] = useState('')
+                            const [price, setPrice] = useState(0)
+                            const [quantity, setQuantity] = useState(0)
+                            const [description, setDescription] = useState('')
+
+                            const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
+                            marketplaceContract.methods.getEvent(event).call()
+                                .then((eventMetadata) => {
+                                    setName(eventMetadata.name)
+                                    setImageUri(eventMetadata.imageUri)
+                                    setPrice(eventMetadata.price)
+                                    setQuantity(eventMetadata.quantity)
+                                    setDescription(eventMetadata.description)
+                                })
+
+                            return (
+                                <EventCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
+                            )
+                        }
                     })
                     :
                     Array(3).fill(0).map(_ => {
