@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ContentTitle } from "../../pages/dashboard"
 
 export default function MyTicketsContent() {
@@ -28,7 +29,7 @@ function TicketList({ tickets }) {
                         const description = 'This is a description for testing! This is a description for testing!'
 
                         return (
-                            <TicketCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
+                            <TicketCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} key={event.id} />
                         )
                     })
             }
@@ -40,7 +41,7 @@ function TicketCard({ name, imageUri, price, quantity, description }) {
     return (
         <div className="flex w-full h-64 space-x-4 rounded-2xl bg-accentD p-4">
             <div className="flex w-1/3 bg-highlightD rounded-xl overflow-clip">
-                <img src={`https://cloudflare-ipfs.com/ipfs/${imageUri}`} className="object-cover min-w-full min-h-full" />
+                <Image src={`https://cloudflare-ipfs.com/ipfs/${imageUri}`} className="object-cover min-w-full min-h-full" alt=""/>
             </div>
             <div className="flex flex-col space-y-4 w-2/3">
                 <p className="text-accent font-black text-3xl">

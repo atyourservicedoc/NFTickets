@@ -25,7 +25,7 @@ export default function Home() {
     if (web3AuthProvider.sessionStatus == ADAPTER_EVENTS.CONNECTED) {
       router.push('/dashboard');
     }
-  }, [web3AuthProvider.sessionStatus])
+  }, [web3AuthProvider.sessionStatus, router])
 
   return (
     <LoadingIndicator />

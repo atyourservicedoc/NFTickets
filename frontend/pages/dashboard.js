@@ -9,19 +9,21 @@ import { LogoWithText } from '../components/Logo';
 import { ADAPTER_EVENTS } from '@web3auth/base';
 import LoadingIndicator from '../components/LoadingIndicator';
 
-export default function dashboard() {
+export default function Dashboard() {
 
     // get web3auth context
     const web3AuthProvider = useContext(Web3AuthContext);
+
+    const router = useRouter()
 
     useEffect(() => {
         // Redirect to landing if not authenticated
         if (web3AuthProvider.sessionStatus == ADAPTER_EVENTS.DISCONNECTED) {
             router.push('/landing');
         }
-    }, [web3AuthProvider.sessionStatus])
+    }, [web3AuthProvider.sessionStatus, router])
 
-    const router = useRouter()
+    
 
     useEffect(() => {
         if (router && router.pathname == '/dashboard' && !navBarData.find(object => object.id != null && object.id == router.query.page)) {
@@ -32,7 +34,7 @@ export default function dashboard() {
                 }
             }, undefined, { shallow: true })
         }
-    })
+    }, [router])
 
     if (web3AuthProvider.sessionStatus != ADAPTER_EVENTS.CONNECTED) {
         return (
@@ -65,7 +67,7 @@ function ContentView() {
     useEffect(() => {
         const object = navBarData.find(object => object.id == router.query.page)
         setContent(object == null ? "" : object.content)
-    })
+    }, [router.query.page])
 
     return (
         <div className="w-full h-full overflow-y-hidden px-8 py-4">

@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { Web3AuthContext } from "../../web3auth/Web3AuthContext";
+import { Image} from 'next';
 const ipfs = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import * as marketplaceJson from '../../../backend/hardhat/contracts/ConcertMarketPlace.json';
@@ -135,7 +136,7 @@ function CreateEventForm() {
 function ImagePreview({ imgSrc }) {
     return (
         <div className="flex w-1/4 aspect-square rounded-xl border-2 border-highlightD overflow-clip">
-            <img src={imgSrc} className="object-cover min-w-full min-h-full" />
+            <Image src={imgSrc} className="object-cover min-w-full min-h-full" alt=''/>
         </div>
     )
 }

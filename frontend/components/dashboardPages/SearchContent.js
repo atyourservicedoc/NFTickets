@@ -5,6 +5,7 @@ import { useEffect, useState, useContext } from "react";
 import { Web3AuthContext } from "../../web3auth/Web3AuthContext";
 
 import * as marketplaceJson from '../../../backend/hardhat/contracts/ConcertMarketPlace.json';
+import Image from "next/image";
 const concertMarketplaceAddress = '0xd106E4e5Fc3c64d2FABEd9Bcce12ABbBfE1E798A';
 
 export default function SearchContent() {
@@ -18,15 +19,18 @@ export default function SearchContent() {
     // get web3auth context
     const web3AuthProvider = useContext(Web3AuthContext);
 
-    useEffect(async () => {
-        if (web3AuthProvider.web3) {
-            const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
-            await marketplaceContract.methods.getEventIds().call()
-                .then((array) => {
-                    setEvents(array);
-                })
+    useEffect(() => {
+        async function fetchData() {
+            if (web3AuthProvider.web3) {
+                const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
+                await marketplaceContract.methods.getEventIds().call()
+                    .then((array) => {
+                        setEvents(array);
+                    })
+            }
         }
-    }, [])
+        fetchData()
+    }, [web3AuthProvider.web3])
 
     return (
         <div className="flex flex-col space-y-4 h-full">
@@ -64,34 +68,18 @@ function EventList({ events }) {
 
                         // get event data from id
                         if (web3AuthProvider.web3) {
-
-                            const [name, setName] = useState('')
-                            const [imageUri, setImageUri] = useState('')
-                            const [price, setPrice] = useState(0)
-                            const [quantity, setQuantity] = useState(0)
-                            const [description, setDescription] = useState('')
-
                             const marketplaceContract = new web3AuthProvider.web3.eth.Contract(marketplaceJson.abi, concertMarketplaceAddress)
-                            marketplaceContract.methods.getEvent(event).call()
+
+                            return marketplaceContract.methods.getEvent(event).call()
                                 .then((eventMetadata) => {
-                                    setName(eventMetadata.name)
-                                    setImageUri(eventMetadata.baseURI)
-                                    setPrice(eventMetadata.price)
-                                    setQuantity(eventMetadata.quantity)
-                                    setDescription(eventMetadata.description)
-                                })
-
-                            console.log(imageUri);
-
-                            return (
-                                <EventCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
-                            )
+                                    return (<EventCard name={eventMetadata.name} imageUri={eventMetadata.baseURI} price={eventMetadata.price} quantity={eventMetadata.quantity} description={eventMetadata.description} />)
+                                });
                         }
                     })
                     :
-                    Array(3).fill(0).map(_ => {
+                    Array(3).fill(0).map((_, index) => {
                         return (
-                            <LoadingEventCard />
+                            <LoadingEventCard key={index} />
                         )
                     })
             }
@@ -103,7 +91,7 @@ function EventCard({ name, imageUri, price, quantity, description }) {
     return (
         <div className="flex w-full h-64 space-x-4 rounded-2xl bg-accentD p-4">
             <div className="flex w-1/3 bg-highlightD rounded-xl overflow-clip">
-                <img src={imageUri} className="object-cover min-w-full min-h-full" />
+                <Image src={imageUri} className="object-cover min-w-full min-h-full" alt=""/>
             </div>
             <div className="flex flex-col space-y-4 w-2/3">
                 <p className="text-accent font-black text-3xl">
