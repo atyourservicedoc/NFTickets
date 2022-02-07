@@ -75,11 +75,13 @@ function EventList({ events }) {
                             marketplaceContract.methods.getEvent(event).call()
                                 .then((eventMetadata) => {
                                     setName(eventMetadata.name)
-                                    setImageUri(eventMetadata.imageUri)
+                                    setImageUri(eventMetadata.baseURI)
                                     setPrice(eventMetadata.price)
                                     setQuantity(eventMetadata.quantity)
                                     setDescription(eventMetadata.description)
                                 })
+
+                            console.log(imageUri);
 
                             return (
                                 <EventCard name={name} imageUri={imageUri} price={price} quantity={quantity} description={description} />
@@ -101,7 +103,7 @@ function EventCard({ name, imageUri, price, quantity, description }) {
     return (
         <div className="flex w-full h-64 space-x-4 rounded-2xl bg-accentD p-4">
             <div className="flex w-1/3 bg-highlightD rounded-xl overflow-clip">
-                <img src={`https://cloudflare-ipfs.com/ipfs/${imageUri}`} className="object-cover min-w-full min-h-full" />
+                <img src={imageUri} className="object-cover min-w-full min-h-full" />
             </div>
             <div className="flex flex-col space-y-4 w-2/3">
                 <p className="text-accent font-black text-3xl">
@@ -118,7 +120,7 @@ function EventCard({ name, imageUri, price, quantity, description }) {
             </div>
         </div>
     )
-}
+}//<img src={`https://cloudflare-ipfs.com/ipfs/${imageUri}`} className="object-cover min-w-full min-h-full" />
 
 function SmallDataField({ indicator, text, unit }) {
     return (
