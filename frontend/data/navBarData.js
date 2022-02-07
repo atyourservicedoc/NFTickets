@@ -29,12 +29,5 @@ module.exports = [
         content: <MyTicketsContent />,
         id: 'mytickets',
         authRequired: true
-    },
-    {
-        title: 'Sales',
-        icon: <FiTrendingUp size="20" />,
-        content: <SalesContent />,
-        id: 'sales',
-        authRequired: true
     }
 ]

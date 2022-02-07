@@ -1,7 +1,7 @@
 import { ContentTitle } from "../../pages/dashboard"
 import { FiSearch } from "react-icons/fi"
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SearchContent() {
 
