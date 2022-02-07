@@ -2,7 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/Event.sol": {
+<<<<<<< HEAD
       "lastModificationDate": 1644181419740,
+=======
+      "lastModificationDate": 1644079117389,
+>>>>>>> 508107e24d4d2b216e449e51c33bbba9970cc865
       "contentHash": "5d5d3e37abf7966f1dd8a79440181a35",
       "sourceName": "contracts/Event.sol",
       "solcConfig": {
@@ -717,7 +721,11 @@
       ]
     },
     "/Users/nicolasguascasantamaria/Documents/GitHub/hackathons/road_to_web3/NFTickets/packages/hardhat/contracts/EventMarketplace.sol": {
+<<<<<<< HEAD
       "lastModificationDate": 1644180372886,
+=======
+      "lastModificationDate": 1644079122722,
+>>>>>>> 508107e24d4d2b216e449e51c33bbba9970cc865
       "contentHash": "74f442d9231345e79dec19a660b91a6b",
       "sourceName": "contracts/EventMarketplace.sol",
       "solcConfig": {

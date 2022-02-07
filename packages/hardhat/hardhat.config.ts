@@ -11,6 +11,8 @@ dotenv.config();
 
 const privateKey = process.env.PRIVATE_KEY;
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY;
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
+const POLYGON_API_KEY = process.env.POLYGON_API_KEY;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -45,8 +47,12 @@ const config: HardhatUserConfig = {
     }
   },
   etherscan: {
+<<<<<<< HEAD
     apiKey: process.env.POLYGON_API_KEY
     // network: "hardhat"
+=======
+    apiKey: POLYGON_API_KEY
+>>>>>>> 508107e24d4d2b216e449e51c33bbba9970cc865
   }
 };
 

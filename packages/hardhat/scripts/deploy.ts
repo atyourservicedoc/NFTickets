@@ -27,6 +27,7 @@ async function main() {
 
   // await eventMarketplace.deployed();
 
+<<<<<<< HEAD
   // console.log("Event deployed to:", eventMarketplace.address);
 
   const ConcertMarketPlace = await ethers.getContractFactory(
@@ -37,6 +38,9 @@ async function main() {
   await concertMarketPlace.deployed();
 
   console.log("ConcertMarketPlace deployed to:", concertMarketPlace.address);
+=======
+  console.log("Event Marketplace deployed to:", eventMarketplace.address);
+>>>>>>> 508107e24d4d2b216e449e51c33bbba9970cc865
 
   const config = `
   export const concertMarketPlace = "${concertMarketPlace.address}"
